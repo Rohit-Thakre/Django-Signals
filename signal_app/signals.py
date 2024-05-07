@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save, m2m_changed
+from django.db.models.signals import post_save, m2m_changed, post_delete
 from signal_app import models
 
 from django.dispatch import receiver
@@ -22,3 +22,10 @@ def block_liked_by_updated_receiver(sender, instance,action, **kwargs):
 @receiver(post_save, sender=models.Blog)
 def blog_post_save_receiver(sender, instance, created, **kwargs):
     print("blog post save receiver")
+
+
+
+  
+@receiver(post_delete, sender=models.Blog)
+def blog_post_delete_receiver(sender, instance, **kwargs):
+    print("blog deleted")
