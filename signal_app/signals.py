@@ -4,7 +4,7 @@ from signal_app import models
 from django.dispatch import receiver
 
 @receiver(m2m_changed, sender=models.Blog.liked_by.through)
-def blog_saved(sender, instance,action, **kwargs):
+def block_liked_by_updated_receiver(sender, instance,action, **kwargs):
     if action == "post_add":
         user_action = "liked"
     else: 
@@ -19,4 +19,6 @@ def blog_saved(sender, instance,action, **kwargs):
     
 
   
-    
+@receiver(post_save, sender=models.Blog)
+def blog_post_save_receiver(sender, instance, created, **kwargs):
+    print("blog post save receiver")
